@@ -18,10 +18,13 @@ const throttle = (func, delay) => {
       lastExecTime = currentTime;
     } else {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-        lastExecTime = Date.now();
-      }, delay - (currentTime - lastExecTime));
+      timeoutId = setTimeout(
+        () => {
+          func.apply(this, args);
+          lastExecTime = Date.now();
+        },
+        delay - (currentTime - lastExecTime)
+      );
     }
   };
 };
@@ -41,13 +44,16 @@ const StickyScheduleCTA = () => {
     throttle(() => {
       const scrollPosition = window.scrollY;
       const shouldBeVisible = scrollPosition > 600 && !isDismissed;
-      
+
       if (shouldBeVisible !== isVisible) {
         setIsVisible(shouldBeVisible);
-        
+
         // Announce to screen readers when CTA appears
         if (shouldBeVisible && liveRegionRef.current) {
-          liveRegionRef.current.textContent = t('accessibility.cta_appeared', 'Opção de agendamento apareceu na tela');
+          liveRegionRef.current.textContent = t(
+            'accessibility.cta_appeared',
+            'Opção de agendamento apareceu na tela'
+          );
         }
       }
     }, 100),
@@ -76,10 +82,13 @@ const StickyScheduleCTA = () => {
       const validUrl = clinicInfo.validateSchedulingUrl();
       if (validUrl) {
         safeOpenUrl(validUrl);
-        
+
         // Track interaction for analytics (accessibility-friendly)
         if (liveRegionRef.current) {
-          liveRegionRef.current.textContent = t('accessibility.schedule_clicked', 'Redirecionando para agendamento online');
+          liveRegionRef.current.textContent = t(
+            'accessibility.schedule_clicked',
+            'Redirecionando para agendamento online'
+          );
         }
       } else {
         console.error('Scheduling URL validation failed');
@@ -91,11 +100,16 @@ const StickyScheduleCTA = () => {
 
   const handleWhatsAppClick = useCallback(() => {
     try {
-      const whatsappUrl = generateWhatsAppUrl('Olá! Gostaria de agendar uma consulta oftalmológica.');
+      const whatsappUrl = generateWhatsAppUrl(
+        'Olá! Gostaria de agendar uma consulta oftalmológica.'
+      );
       safeOpenUrl(whatsappUrl);
-      
+
       if (liveRegionRef.current) {
-        liveRegionRef.current.textContent = t('accessibility.whatsapp_clicked', 'Abrindo WhatsApp para contato');
+        liveRegionRef.current.textContent = t(
+          'accessibility.whatsapp_clicked',
+          'Abrindo WhatsApp para contato'
+        );
       }
     } catch (error) {
       console.error('Error handling WhatsApp click:', error);
@@ -104,29 +118,32 @@ const StickyScheduleCTA = () => {
 
   const handleDismiss = useCallback(() => {
     setIsDismissed(true);
-    
+
     try {
       sessionStorage.setItem('stickyCtaDismissed', 'true');
     } catch (error) {
       console.warn('Unable to save dismiss state:', error);
     }
-    
+
     if (liveRegionRef.current) {
-      liveRegionRef.current.textContent = t('accessibility.cta_dismissed', 'Opção de agendamento foi removida');
+      liveRegionRef.current.textContent = t(
+        'accessibility.cta_dismissed',
+        'Opção de agendamento foi removida'
+      );
     }
   }, [t]);
 
   const toggleExpanded = useCallback(() => {
     const newExpanded = !isExpanded;
     setIsExpanded(newExpanded);
-    
+
     // Announce state change to screen readers
     if (liveRegionRef.current) {
-      liveRegionRef.current.textContent = newExpanded 
+      liveRegionRef.current.textContent = newExpanded
         ? t('accessibility.options_expanded', 'Opções de contato expandidas')
         : t('accessibility.options_collapsed', 'Opções de contato recolhidas');
     }
-    
+
     // Focus management for better UX
     setTimeout(() => {
       if (newExpanded) {
@@ -145,13 +162,8 @@ const StickyScheduleCTA = () => {
   return (
     <>
       {/* Screen reader live region for announcements */}
-      <div
-        ref={liveRegionRef}
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      />
-      
+      <div ref={liveRegionRef} aria-live="polite" aria-atomic="true" className="sr-only" />
+
       <AnimatePresence>
         <motion.aside
           initial={{ y: 100, opacity: 0 }}
@@ -168,35 +180,33 @@ const StickyScheduleCTA = () => {
             <div className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h3 
+                  <h3
                     id="sticky-cta-title"
                     className="font-bold text-slate-900 text-sm md:text-base"
                   >
                     {t('cta.sticky.title', 'Agende sua consulta')}
                   </h3>
-                  <p 
-                    id="sticky-cta-desc"
-                    className="text-slate-600 text-xs md:text-sm"
-                  >
+                  <p id="sticky-cta-desc" className="text-slate-600 text-xs md:text-sm">
                     {t('cta.sticky.subtitle', 'Atendimento rápido e especializado')}
                   </p>
                 </div>
-                
+
                 {/* Minimize/Expand Button */}
                 <button
                   ref={expandButtonRef}
                   onClick={toggleExpanded}
                   className="p-2 hover:bg-slate-100 focus:bg-slate-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-lg transition-colors ml-2"
-                  aria-label={isExpanded 
-                    ? t('accessibility.minimize_options', 'Minimizar opções de contato')
-                    : t('accessibility.expand_options', 'Expandir opções de contato')
+                  aria-label={
+                    isExpanded
+                      ? t('accessibility.minimize_options', 'Minimizar opções de contato')
+                      : t('accessibility.expand_options', 'Expandir opções de contato')
                   }
                   aria-expanded={isExpanded}
                   aria-controls="sticky-cta-expanded"
                 >
-                  <ChevronUp 
-                    size={16} 
-                    className={`transform transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
+                  <ChevronUp
+                    size={16}
+                    className={`transform transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                     aria-hidden="true"
                   />
                 </button>
@@ -240,13 +250,10 @@ const StickyScheduleCTA = () => {
                   aria-labelledby="sticky-cta-additional-title"
                 >
                   <div className="p-4 bg-slate-50">
-                    <p 
-                      id="sticky-cta-additional-title"
-                      className="text-xs text-slate-600 mb-3"
-                    >
+                    <p id="sticky-cta-additional-title" className="text-xs text-slate-600 mb-3">
                       {t('cta.sticky.or_contact', 'Ou fale conosco diretamente:')}
                     </p>
-                    
+
                     {/* Secondary CTA - WhatsApp */}
                     <Button
                       onClick={handleWhatsAppClick}
@@ -261,7 +268,11 @@ const StickyScheduleCTA = () => {
                     </Button>
 
                     {/* Quick Info - Improved accessibility */}
-                    <div className="mt-3 text-xs text-slate-500" role="list" aria-label={t('accessibility.contact_info', 'Informações de contato')}>
+                    <div
+                      className="mt-3 text-xs text-slate-500"
+                      role="list"
+                      aria-label={t('accessibility.contact_info', 'Informações de contato')}
+                    >
                       <p role="listitem" className="flex items-center gap-1">
                         <MapPin size={12} aria-hidden="true" className="text-blue-600" />
                         <span className="sr-only">{t('accessibility.address', 'Endereço:')}</span>
@@ -285,8 +296,8 @@ const StickyScheduleCTA = () => {
           </div>
 
           {/* High contrast border for accessibility - Enhanced */}
-          <div 
-            className="absolute inset-0 rounded-2xl border-2 border-blue-600 opacity-20 pointer-events-none" 
+          <div
+            className="absolute inset-0 rounded-2xl border-2 border-blue-600 opacity-20 pointer-events-none"
             aria-hidden="true"
           />
         </motion.aside>
