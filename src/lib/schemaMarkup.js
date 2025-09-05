@@ -1,5 +1,164 @@
 import { clinicInfo } from './clinicInfo.js';
 
+export const generatePhysicianSchema = (language = 'pt', forGraph = false) => {
+  const baseSchema = {
+    '@type': 'Physician',
+    '@id': 'https://saraivavision.com.br/#physician',
+    name: clinicInfo.responsiblePhysician,
+    alternateName: 'Dr. Philipe Saraiva Cruz',
+    description: language === 'pt' 
+      ? 'Médico oftalmologista especializado em diagnóstico e tratamento de doenças oculares, com mais de 15 anos de experiência em Caratinga/MG.'
+      : 'Ophthalmologist specialized in diagnosis and treatment of eye diseases, with over 15 years of experience in Caratinga/MG.',
+    image: 'https://saraivavision.com.br/img/drphilipe_perfil.png',
+    
+    // Especialização médica
+    medicalSpecialty: ['Ophthalmology'],
+    knowsAbout: [
+      'Ophthalmology',
+      'Contact Lens Fitting', 
+      'Retinal Diseases',
+      'Glaucoma Treatment',
+      'Cataract Surgery',
+      'Refractive Surgery',
+      'Pediatric Ophthalmology',
+      'Diabetic Retinopathy',
+      'Macular Degeneration',
+      'Dry Eye Treatment'
+    ],
+    
+    // Identificação profissional
+    identifier: [
+      {
+        '@type': 'PropertyValue',
+        propertyID: 'CRM',
+        value: clinicInfo.responsiblePhysicianCRM,
+        description: 'Conselho Regional de Medicina de Minas Gerais'
+      }
+    ],
+    
+    // Local de trabalho
+    worksFor: {
+      '@type': 'MedicalOrganization',
+      '@id': 'https://saraivavision.com.br/#clinic',
+      name: clinicInfo.name,
+      url: 'https://saraivavision.com.br/'
+    },
+    
+    // Educação e formação
+    alumniOf: [
+      {
+        '@type': 'MedicalOrganization',
+        name: 'Faculdade de Medicina',
+        description: 'Formação em Medicina'
+      },
+      {
+        '@type': 'MedicalOrganization',
+        name: 'Residência em Oftalmologia',
+        description: 'Especialização em Oftalmologia'
+      }
+    ],
+    
+    // Área de atuação geográfica
+    areaServed: {
+      '@type': 'State',
+      name: 'Minas Gerais',
+      containsPlace: [
+        { '@type': 'City', name: 'Caratinga' },
+        { '@type': 'City', name: 'Ipanema' },
+        { '@type': 'City', name: 'Ubaporanga' },
+        { '@type': 'City', name: 'Entre Folhas' }
+      ]
+    },
+    
+    // Condições médicas tratadas
+    medicalConditionTreated: [
+      'Myopia',
+      'Hyperopia',
+      'Astigmatism', 
+      'Presbyopia',
+      'Glaucoma',
+      'Cataract',
+      'Diabetic Retinopathy',
+      'Macular Degeneration',
+      'Dry Eye Syndrome',
+      'Strabismus',
+      'Amblyopia',
+      'Pterygium'
+    ],
+    
+    // Procedimentos realizados
+    availableService: [
+      {
+        '@type': 'MedicalProcedure',
+        name: 'Comprehensive Eye Examination',
+        category: 'Ophthalmology'
+      },
+      {
+        '@type': 'MedicalProcedure', 
+        name: 'Cataract Surgery',
+        category: 'Ophthalmology'
+      },
+      {
+        '@type': 'MedicalProcedure',
+        name: 'Contact Lens Fitting',
+        category: 'Ophthalmology'
+      },
+      {
+        '@type': 'MedicalProcedure',
+        name: 'Glaucoma Treatment',
+        category: 'Ophthalmology'
+      },
+      {
+        '@type': 'MedicalProcedure',
+        name: 'Retinal Examination',
+        category: 'Ophthalmology'
+      }
+    ],
+    
+    // Horário de atendimento
+    availableAtOrFrom: {
+      '@type': 'MedicalClinic',
+      '@id': 'https://saraivavision.com.br/#clinic',
+      name: clinicInfo.name,
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '18:00'
+      }]
+    },
+    
+    // Credenciais e certificações
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Medical License',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Conselho Federal de Medicina',
+          url: 'https://portal.cfm.org.br/'
+        }
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Specialty Certification',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Conselho Brasileiro de Oftalmologia',
+          url: 'https://www.cbo.com.br/'
+        }
+      }
+    ]
+  };
+  
+  // Se não for para @graph, adicionar @context
+  if (!forGraph) {
+    baseSchema['@context'] = 'https://schema.org';
+  }
+  
+  return baseSchema;
+};
+
 // Gera schema markup para MedicalClinic seguindo as melhores práticas
 export const generateMedicalClinicSchema = (language = 'pt', forGraph = false) => {
   const baseSchema = {

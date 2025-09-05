@@ -19,6 +19,7 @@ import { Toaster } from '@/components/ui/toaster';
 import ConsentManager from '@/components/ConsentManager';
 import CTAModal from '@/components/CTAModal';
 import WhatsappWidget from '@/components/WhatsappWidget';
+import StickyScheduleCTA from '@/components/StickyScheduleCTA';
 import ServiceWorkerUpdateNotification from '@/components/ServiceWorkerUpdateNotification';
 import { clinicInfo } from '@/lib/clinicInfo';
 import { safePhoneFormat } from '@/utils/phoneFormatter';
@@ -52,6 +53,7 @@ function App() {
       <Toaster />
       <ConsentManager />
       <CTAModal />
+      <StickyScheduleCTA />
       <ServiceWorkerUpdateNotification />
       <WhatsappWidget phoneNumber={safePhoneFormat(clinicInfo.whatsapp || clinicInfo.phone)} />
       <Accessibility />

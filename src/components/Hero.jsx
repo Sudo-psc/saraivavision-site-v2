@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation, Trans } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { Calendar, ArrowRight, Eye } from 'lucide-react';
+import { Calendar, ArrowRight, Eye, Star, MapPin } from 'lucide-react';
 import { clinicInfo } from '@/lib/clinicInfo';
 import { useWhatsApp } from '@/hooks/useWhatsApp';
 import { safeOpenUrl } from '@/utils/safeNavigation';
@@ -79,7 +79,29 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Micro-roadmap copy below hero primary actions */}
+            {/* Trust Signals - Rating and Address */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 justify-center lg:justify-start mb-4">
+              {/* Google Rating */}
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} className="text-yellow-500 fill-current" />
+                  ))}
+                </div>
+                <span className="font-semibold text-slate-800">4.9</span>
+                <span className="text-slate-600 text-sm">(102+ avaliações)</span>
+              </div>
+
+              {/* Address */}
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
+                <MapPin size={14} className="text-blue-600" />
+                <span className="text-slate-700 text-sm font-medium">
+                  {clinicInfo.address.city}, {clinicInfo.address.state}
+                </span>
+              </div>
+            </div>
+
+            {/* Micro-roadmap copy below trust signals */}
             <p className="text-sm text-slate-700 mt-2 font-medium" aria-live="polite">
               {t('hero.microcopy_fast_confirmation')}
               <button type="button" onClick={handleAgendarContato} className="ml-2 text-blue-700 hover:underline">{t('hero.more_contact_options')}</button>

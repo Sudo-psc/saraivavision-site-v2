@@ -1052,7 +1052,15 @@
   },
   "cta": {
     "scheduleConsultation": "Agendar Consulta",
-    "scheduleNow": "Agendar Agora"
+    "scheduleNow": "Agendar Agora",
+    "sticky": {
+      "title": "Agende sua consulta",
+      "subtitle": "Atendimento rápido e especializado",
+      "schedule_online": "Agendar Online",
+      "whatsapp": "WhatsApp",
+      "or_contact": "Ou fale conosco diretamente:",
+      "hours": "Segunda a Sexta, 8h às 18h"
+    }
   },
   "navigation": {
     "backToServices": "Voltar aos Serviços"
