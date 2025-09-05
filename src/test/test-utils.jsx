@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { vi } from 'vitest';
 
 // Comprehensive mock translations covering all components
@@ -25,6 +26,7 @@ const mockTranslations = {
   'contact.info.phone_title': 'Telefone',
   'contact.info.email_title': 'E-mail',
   'contact.info.hours_title': 'Horários de Funcionamento',
+  'contact.info.phone_whatsapp': 'Falar no WhatsApp',
   
   // Services component  
   'services.title': 'Nossos Serviços',
@@ -108,6 +110,101 @@ export const renderWithProviders = (ui, options = {}) => {
   };
 
   return render(ui, { wrapper: AllTheProviders, ...options });
+};
+
+/**
+ * Renders component with HelmetProvider and MemoryRouter for testing
+ * @param {React.ReactElement} ui - Component to render
+ * @param {string} route - Initial route
+ * @param {Object} options - Additional render options
+ */
+export const renderWithHelmetAndRoute = (ui, route = '/', options = {}) => {
+  const AllTheProviders = ({ children }) => (
+    <HelmetProvider>
+      <MemoryRouter initialEntries={[route]}>
+        {children}
+      </MemoryRouter>
+    </HelmetProvider>
+  );
+
+  return render(ui, { wrapper: AllTheProviders, ...options });
+};
+
+/**
+ * Creates a mock fetch function for API testing
+ * @param {Object} mockData - Mock response data
+ * @param {number} status - HTTP status code
+ * @param {boolean} ok - Whether response is ok
+ */
+export const createMockFetch = (mockData = {}, status = 200, ok = true) => {
+  return vi.fn(() =>
+    Promise.resolve({
+      ok,
+      status,
+      json: () => Promise.resolve(mockData),
+      text: () => Promise.resolve(JSON.stringify(mockData)),
+    })
+  );
+};
+
+/**
+ * Accessibility testing helpers
+ */
+export const a11yHelpers = {
+  /**
+   * Checks if element has proper ARIA attributes
+   * @param {HTMLElement} element 
+   * @param {Array} requiredAttributes 
+   */
+  checkAriaAttributes: (element, requiredAttributes = []) => {
+    requiredAttributes.forEach(attr => {
+      if (!element.getAttribute(attr)) {
+        throw new Error(`Element missing required ARIA attribute: ${attr}`);
+      }
+    });
+  },
+
+  /**
+   * Checks if form has proper validation attributes
+   * @param {HTMLElement} form 
+   */
+  checkFormValidation: (form) => {
+    const inputs = form.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+      if (input.hasAttribute('required') && !input.hasAttribute('aria-invalid')) {
+        console.warn(`Required input missing aria-invalid: ${input.name || input.id}`);
+      }
+    });
+  }
+};
+
+/**
+ * Performance testing utilities
+ */
+export const perfHelpers = {
+  /**
+   * Measures component render time
+   * @param {Function} renderFn - Function that renders the component
+   */
+  measureRenderTime: async (renderFn) => {
+    const start = performance.now();
+    await renderFn();
+    const end = performance.now();
+    return end - start;
+  },
+
+  /**
+   * Checks if component renders within performance budget
+   * @param {Function} renderFn - Function that renders the component
+   * @param {number} budget - Maximum render time in ms
+   */
+  checkRenderBudget: async (renderFn, budget = 100) => {
+    const renderTime = await perfHelpers.measureRenderTime(renderFn);
+    if (renderTime > budget) {
+      console.warn(`Component render time ${renderTime}ms exceeds budget ${budget}ms`);
+    }
+    return renderTime <= budget;
+  }
 };
 
 // Re-export everything from testing-library
