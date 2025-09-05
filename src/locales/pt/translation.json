@@ -1052,7 +1052,30 @@
   },
   "cta": {
     "scheduleConsultation": "Agendar Consulta",
-    "scheduleNow": "Agendar Agora"
+    "scheduleNow": "Agendar Agora",
+    "sticky": {
+      "title": "Agende sua consulta",
+      "subtitle": "Atendimento rápido e especializado",
+      "schedule_online": "Agendar Online",
+      "whatsapp": "WhatsApp",
+      "or_contact": "Ou fale conosco diretamente:",
+      "hours": "Segunda a Sexta, 8h às 18h"
+    }
+  },
+  "accessibility": {
+    "cta_appeared": "Opção de agendamento apareceu na tela",
+    "schedule_clicked": "Redirecionando para agendamento online",
+    "whatsapp_clicked": "Abrindo WhatsApp para contato",
+    "cta_dismissed": "Opção de agendamento foi removida",
+    "options_expanded": "Opções de contato expandidas",
+    "options_collapsed": "Opções de contato recolhidas",
+    "minimize_options": "Minimizar opções de contato",
+    "expand_options": "Expandir opções de contato",
+    "close_cta": "Fechar opção de agendamento",
+    "contact_info": "Informações de contato",
+    "address": "Endereço:",
+    "phone": "Telefone:",
+    "hours": "Horário:"
   },
   "navigation": {
     "backToServices": "Voltar aos Serviços"
