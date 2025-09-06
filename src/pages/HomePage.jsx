@@ -6,7 +6,7 @@ import SchemaMarkup from '@/components/SchemaMarkup';
 import { useHomeSEO } from '@/hooks/useSEO';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Services from '@/components/Services';
+import ServicesGrouped from '@/components/ServicesGrouped';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -58,7 +58,7 @@ function HomePage() {
         <hr className="hr-divider" aria-hidden="true" />
 
 
-        <Services />
+        <ServicesGrouped />
 
         <hr className="hr-divider" aria-hidden="true" />
 
