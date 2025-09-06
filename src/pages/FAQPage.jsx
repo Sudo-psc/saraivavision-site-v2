@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '@/components/SEOHead';
+import SchemaMarkup from '@/components/SchemaMarkup';
 import { useFAQSEO } from '@/hooks/useSEO';
 import Navbar from '@/components/Navbar';
 import FAQ from '@/components/FAQ';
@@ -11,9 +12,19 @@ function FAQPage() {
   const { t } = useTranslation();
   const seoData = useFAQSEO();
 
+  const pageInfo = {
+    url: '/faq',
+    title: seoData.title,
+    description: seoData.description,
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <SEOHead {...seoData} />
+      <SchemaMarkup 
+        type="webpage" 
+        pageInfo={pageInfo}
+      />
       <Navbar />
 
       <main>
