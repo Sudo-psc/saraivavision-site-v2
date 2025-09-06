@@ -19,6 +19,11 @@ if (typeof window !== 'undefined') {
     }
   };
 
+  // Initialize iOS-safe viewport height immediately
+  import('@/utils/viewportHeight').then(({ initViewportHeight }) => {
+    initViewportHeight();
+  });
+
   window.addEventListener('load', () => {
     idle(async () => {
       try {
