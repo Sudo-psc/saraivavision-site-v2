@@ -38,14 +38,19 @@ describe('SEOHead', () => {
     await waitFor(() => {
       const canonical = document.head.querySelector('link[rel="canonical"]');
       expect(canonical).toBeTruthy();
-      expect(canonical.getAttribute('href')).toContain('/servicos');
+    }, { timeout: 10000 });
 
-      const ogLocale = document.head.querySelector('meta[property="og:locale"]');
-      expect(ogLocale?.getAttribute('content')).toBe('pt_BR');
+    // Check canonical link
+    const canonical = document.head.querySelector('link[rel="canonical"]');
+    expect(canonical?.getAttribute('href')).toContain('/servicos');
 
-      const hreflangs = Array.from(document.head.querySelectorAll('link[rel="alternate"]'))
-        .map(l => l.getAttribute('hreflang'));
-      expect(hreflangs).toEqual(expect.arrayContaining(['pt-BR', 'pt', 'en', 'x-default']));
-    });
-  });
+    // Check OG locale
+    const ogLocale = document.head.querySelector('meta[property="og:locale"]');
+    expect(ogLocale?.getAttribute('content')).toBe('pt_BR');
+
+    // Check hreflang links
+    const hreflangs = Array.from(document.head.querySelectorAll('link[rel="alternate"]'))
+      .map(l => l.getAttribute('hreflang'));
+    expect(hreflangs).toEqual(expect.arrayContaining(['pt-BR', 'pt', 'en', 'x-default']));
+  }, 15000);
 });

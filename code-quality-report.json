@@ -1,0 +1,56 @@
+{
+  "summary": {
+    "qualityScore": 62,
+    "maintainabilityIndex": 65,
+    "timestamp": "2025-09-05T16:00:18.382Z"
+  },
+  "files": {
+    "total": 154,
+    "components": 74,
+    "pages": 17,
+    "utils": 32,
+    "tests": 9
+  },
+  "lines": {
+    "total": 24352,
+    "code": 19839,
+    "comments": 1480,
+    "blank": 3033
+  },
+  "complexity": {
+    "functions": 1007,
+    "avgComplexity": 0.06951340615690169,
+    "maxComplexity": 70
+  },
+  "testing": {
+    "totalTests": 344,
+    "coverage": {
+      "statements": 0,
+      "branches": 0,
+      "functions": 0,
+      "lines": 0
+    }
+  },
+  "linting": {
+    "errors": 0,
+    "warnings": 0,
+    "topIssues": []
+  },
+  "maintainability": {
+    "duplicatedLines": 0,
+    "technicalDebt": 2,
+    "codeSmells": 22
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "testing",
+      "message": "Increase test coverage to at least 80%"
+    },
+    {
+      "priority": "medium",
+      "category": "maintainability",
+      "message": "Address 22 code smells"
+    }
+  ]
+}

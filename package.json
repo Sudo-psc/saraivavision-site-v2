@@ -26,7 +26,12 @@
     "verify:gtm": "node scripts/verify-gtm.js",
     "audio:duration": "node tools/get-audio-duration.js",
     "images:build": "node tools/img-pipeline.mjs",
-    "images:check": "node tools/img-pipeline.mjs check"
+    "images:check": "node tools/img-pipeline.mjs check",
+    "lint": "npx eslint src",
+    "lint:fix": "npx eslint src --fix",
+    "quality:fix": "node scripts/fix-code-quality.mjs",
+    "quality:report": "node scripts/code-quality-report.mjs",
+    "quality:check": "npm run lint && npm run test:coverage && npm run quality:report"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.1",
@@ -62,6 +67,7 @@
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.35.0",
     "@lhci/cli": "^0.14.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.8.0",
@@ -75,6 +81,11 @@
     "autoprefixer": "^10.4.16",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
     "html-validate": "^8.24.1",
     "imagemin": "^9.0.0",
     "imagemin-webp": "^8.0.0",

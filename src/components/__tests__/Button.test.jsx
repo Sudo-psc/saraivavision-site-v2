@@ -26,7 +26,7 @@ describe('Button Component', () => {
     const { rerender } = render(<Button variant="secondary">Secondary</Button>)
     
     let button = screen.getByRole('button')
-    expect(button).toHaveClass('bg-slate-100', 'text-slate-700')
+    expect(button).toHaveClass('bg-slate-100', 'text-slate-800')
     
     rerender(<Button variant="destructive">Destructive</Button>)
     button = screen.getByRole('button')

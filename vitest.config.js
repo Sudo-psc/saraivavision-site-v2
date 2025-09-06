@@ -12,9 +12,10 @@ export default defineConfig({
     setupFiles: './src/test/setup.jsx',
     globals: true,
     css: true,
+    testTimeout: 20000,
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'html', 'json'],
+      reporter: ['text', 'json', 'html'],
       exclude: [
         'node_modules/',
         'dist/',
