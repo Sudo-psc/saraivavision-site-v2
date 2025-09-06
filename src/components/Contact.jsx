@@ -6,10 +6,13 @@ import { clinicInfo } from '@/lib/clinicInfo';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useRecaptcha } from '@/hooks/useRecaptcha';
+import { useWhatsApp } from '@/hooks/useWhatsApp';
+import GoogleMapNew from '@/components/GoogleMapNew';
 
 const Contact = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { openWhatsApp } = useWhatsApp();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -85,6 +88,18 @@ const Contact = () => {
   const phoneNumber = "5533998601427";
   const whatsappLink = `https://wa.me/${phoneNumber}`;
   const chatbotLink = "https://chatgpt.com/g/g-quepJB90J-saraiva-vision-clinica-oftalmologica?model=gpt-4o";
+
+  // Enhanced WhatsApp messages for different contexts
+  const whatsappMessages = {
+    appointment: t('contact.whatsapp.appointment', 'Olá! Gostaria de agendar uma consulta oftalmológica. Poderia me informar sobre disponibilidade e valores?'),
+    emergency: t('contact.whatsapp.emergency', 'Olá! Preciso de atendimento oftalmológico urgente. Vocês atendem emergências?'),
+    info: t('contact.whatsapp.info', 'Olá! Gostaria de mais informações sobre os serviços da Clínica Saraiva Vision.'),
+    followup: t('contact.whatsapp.followup', 'Olá! Sou paciente da clínica e gostaria de agendar retorno.')
+  };
+
+  const handleWhatsAppContact = (messageType = 'appointment') => {
+    openWhatsApp(whatsappMessages[messageType]);
+  };
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
@@ -219,14 +234,24 @@ const Contact = () => {
       title: t('contact.info.phone_title'),
       details: (
         <div className="flex items-center gap-2">
-                <button type="button" onClick={() => window.dispatchEvent(new Event('open-floating-cta'))} className="hover:underline font-medium text-left">
+          <button 
+            type="button" 
+            onClick={() => handleWhatsAppContact('appointment')} 
+            className="hover:underline font-medium text-left text-blue-700 hover:text-blue-800"
+            aria-label={t('contact.call_whatsapp', 'Ligar ou enviar WhatsApp')}
+          >
             +55 33 99860-1427
           </button>
           <span className="sr-only">+55 33 99860-1427</span>
         </div>
       ),
       subDetails: (
-        <button type="button" onClick={() => window.dispatchEvent(new Event('open-floating-cta'))} className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-semibold">
+        <button 
+          type="button" 
+          onClick={() => handleWhatsAppContact('appointment')} 
+          className="text-green-600 hover:text-green-700 hover:underline flex items-center gap-1 text-sm font-semibold transition-colors"
+          aria-label={t('contact.whatsapp_appointment', 'Agendar consulta via WhatsApp')}
+        >
           <MessageCircle size={14} /> {t('contact.info.phone_whatsapp')}
         </button>
       )
@@ -234,7 +259,7 @@ const Contact = () => {
     {
       icon: <Mail className="h-6 w-6 text-blue-600" />,
       title: t('contact.info.email_title'),
-      details: <a href="mailto:saraivavision@gmail.com" className="hover:underline">saraivavision@gmail.com</a>,
+      details: <a href="mailto:saraivavision@gmail.com" className="hover:underline text-blue-700 hover:text-blue-800">saraivavision@gmail.com</a>,
       subDetails: t('contact.info.email_sub')
     },
     {
@@ -474,7 +499,37 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Blocos de mapa e imagem removidos conforme solicitação. */}
+            {/* Google Maps Integration */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-8"
+            >
+              <div className="modern-card p-0 overflow-hidden">
+                <div className="p-6 pb-4">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-blue-100 rounded-lg">
+                      <MapPin className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-800">{t('contact.location_title', 'Nossa Localização')}</h4>
+                      <p className="text-sm text-slate-600">{t('contact.location_subtitle', 'Fácil acesso no centro de Caratinga')}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-80">
+                  <GoogleMapNew height={320} />
+                </div>
+                <div className="p-4 bg-slate-50 border-t">
+                  <p className="text-sm text-slate-600 text-center">
+                    <MapPin className="h-4 w-4 inline mr-2" />
+                    {clinicInfo.streetAddress}, {clinicInfo.neighborhood} - {clinicInfo.city}/{clinicInfo.state}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
 
           </motion.div>
         </div>
