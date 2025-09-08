@@ -41,6 +41,15 @@ Guia completo para navegação em toda a documentação do projeto Saraiva Visio
 | [README-LOCAL-DEPLOY.md](./README-LOCAL-DEPLOY.md) | Deploy local | Média |
 | [DEPLOY_SUCCESS_REPORT.md](./DEPLOY_SUCCESS_REPORT.md) | Relatório de sucesso | Baixa |
 
+## 📝 Blog e WordPress
+
+| Documento | Descrição | Status |
+|-----------|-----------|--------|
+| [WORDPRESS_INSTALACAO_PASSO_1.md](./WORDPRESS_INSTALACAO_PASSO_1.md) | Guia detalhado - Primeira fase da instalação | ✅ |
+| [WORDPRESS_SEGURANCA_CHECKLIST.md](./WORDPRESS_SEGURANCA_CHECKLIST.md) | Checklist de segurança WordPress | ✅ |
+| [BLOG_IMPLEMENTATION_PLAN.md](./BLOG_IMPLEMENTATION_PLAN.md) | Plano de implementação completo | 🔄 |
+| [BLOG_DOCUMENTATION.md](./BLOG_DOCUMENTATION.md) | Documentação funcional do blog | ✅ |
+
 ## 🔧 Desenvolvimento e APIs
 
 | Documento | Descrição | Frequência de Uso |
@@ -94,6 +103,11 @@ Guia completo para navegação em toda a documentação do projeto Saraiva Visio
 1. [docs/BRAND_GUIDE.md](./docs/BRAND_GUIDE.md) - Identidade visual
 2. [docs/DESIGN_SYSTEM_INDEX.md](./docs/DESIGN_SYSTEM_INDEX.md) - Sistema de design
 3. [docs/COMPONENT_DESIGN_SYSTEM.md](./docs/COMPONENT_DESIGN_SYSTEM.md) - Componentes
+
+### 📝 Vou implementar o blog WordPress
+1. [WORDPRESS_INSTALACAO_PASSO_1.md](./WORDPRESS_INSTALACAO_PASSO_1.md) - Instalação servidor
+2. [WORDPRESS_SEGURANCA_CHECKLIST.md](./WORDPRESS_SEGURANCA_CHECKLIST.md) - Segurança
+3. [BLOG_IMPLEMENTATION_PLAN.md](./BLOG_IMPLEMENTATION_PLAN.md) - Plano completo
 
 ### 📝 Vou criar conteúdo
 1. [docs/MEDICAL_CONTENT_STRATEGY.md](./docs/MEDICAL_CONTENT_STRATEGY.md) - Estratégia médica

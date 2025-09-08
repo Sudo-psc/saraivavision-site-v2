@@ -6,7 +6,8 @@ Este documento detalha o plano de implementação técnica para o projeto de blo
 
 1.  **Instalação do WordPress:**
     *   Configurar um ambiente de hospedagem PHP/MySQL.
-    *   Instalar o WordPress em um subdomínio (ex: `cms.saraivavision.com.br`) ou um subdiretório (ex: `saraivavision.com.br/cms`). Um subdomínio é recomendado para isolar os ambientes.
+    *   Instalar o WordPress em um subdiretório `/blog` conforme documentado no **[Guia Detalhado de Instalação - Passo 1](./WORDPRESS_INSTALACAO_PASSO_1.md)**.
+    *   **⚠️ IMPORTANTE:** Seguir rigorosamente as medidas de segurança documentadas no **[Checklist de Segurança](./WORDPRESS_SEGURANCA_CHECKLIST.md)**.
 2.  **Configuração da API:**
     *   Verificar a REST API padrão do WordPress para garantir que atende a todas as necessidades de dados.
     *   Alternativa recomendada: Instalar e configurar o plugin **WPGraphQL** para uma comunicação mais eficiente e flexível com o frontend.
